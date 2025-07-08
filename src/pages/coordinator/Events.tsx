@@ -252,8 +252,8 @@ const CoordinatorEvents = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{event.creator.name}</div>
-                      <div className="text-sm text-gray-500">{event.creator.email}</div>
+                      <div className="text-sm text-gray-900">{item.creator?.name}</div>
+                      <div className="text-sm text-gray-500">{item.creator?.email}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(item.status)}
