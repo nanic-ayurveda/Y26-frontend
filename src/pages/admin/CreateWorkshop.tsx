@@ -5,13 +5,13 @@ import { eventsAPI, usersAPI, categoriesAPI, budgetsAPI, CreateEventRequest, Use
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';
 
-const CreateEvent = () => {
+const AdminCreateWorkshop = () => {
   const navigate = useNavigate();
   const { showSuccess } = useToast();
   
   const [formData, setFormData] = useState<CreateEventRequest>({
     title: '',
-    type: 'EVENT',
+    type: 'WORKSHOP',
     coordinatorEmail: '',
     description: '',
     dateTime: ''
@@ -30,7 +30,7 @@ const CreateEvent = () => {
   const { execute: createEvent, loading: creating } = useApi(eventsAPI.create, {
     showSuccessToast: false,
     showErrorToast: true,
-    errorMessage: 'Failed to create event'
+    errorMessage: 'Failed to create workshop'
   });
 
   const { execute: createBudgets } = useApi(budgetsAPI.createOrUpdate, {
@@ -68,10 +68,10 @@ const CreateEvent = () => {
     ]);
 
     if (users) {
-      const eventCoordinators = users.filter(user => 
-        user.role === 'EVENT_COORDINATOR'
+      const workshopCoordinators = users.filter(user => 
+        user.role === 'WORKSHOP_COORDINATOR'
       );
-      setCoordinators(eventCoordinators);
+      setCoordinators(workshopCoordinators);
     }
 
     if (categoriesData) {
@@ -103,8 +103,8 @@ const CreateEvent = () => {
         await createBudgets(result.id, { budgets: validBudgets });
       }
       
-      showSuccess('Event created successfully', 'Your event has been created and is pending approval.');
-      navigate('/event-leads/events');
+      showSuccess('Workshop created successfully', 'Your workshop has been created and is pending approval.');
+      navigate('/workshop-leads/workshops');
     }
   };
 
@@ -159,28 +159,28 @@ const CreateEvent = () => {
     <div className="space-y-6">
       <div className="flex items-center space-x-4">
         <Link
-          to="/event-leads/events"
+          to="/admin/workshops"
           className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Events
+          Back to Workshops
         </Link>
         
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Create New Event</h1>
-          <p className="mt-1 text-sm text-gray-600">Fill in the details and budget to create a new event</p>
+          <h1 className="text-2xl font-bold text-gray-900">Create New Workshop</h1>
+          <p className="mt-1 text-sm text-gray-600">Fill in the details and budget to create a new workshop</p>
         </div>
       </div>
 
       <div className="bg-white shadow rounded-lg">
         <form onSubmit={handleSubmit} className="space-y-6 p-6">
-          {/* Basic Event Information */}
+          {/* Basic Workshop Information */}
           <div className="border-b border-gray-200 pb-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Event Information</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Workshop Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                  Event Title *
+                  Workshop Title *
                 </label>
                 <input
                   type="text"
@@ -190,7 +190,7 @@ const CreateEvent = () => {
                   value={formData.title}
                   onChange={handleChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Enter event title"
+                  placeholder="Enter workshop title"
                 />
               </div>
 
@@ -239,7 +239,7 @@ const CreateEvent = () => {
                   value={formData.description}
                   onChange={handleChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Enter event description"
+                  placeholder="Enter workshop description"
                 />
               </div>
             </div>
@@ -331,7 +331,7 @@ const CreateEvent = () => {
 
           <div className="flex justify-end space-x-3">
             <Link
-              to="/event-leads/events"
+              to="/workshop-leads/workshops"
               className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
               Cancel
@@ -346,7 +346,7 @@ const CreateEvent = () => {
               ) : (
                 <Save className="h-4 w-4 mr-2" />
               )}
-              Create Event
+              Create Workshop
             </button>
           </div>
         </form>
@@ -420,4 +420,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default AdminCreateWorkshop;

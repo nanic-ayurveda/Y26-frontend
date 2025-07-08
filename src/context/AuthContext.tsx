@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (token && savedUser) {
         try {
           const parsedUser = JSON.parse(savedUser);
-          // Verify token is still valid by making a request to get current user
+          console.log('Verifying saved user:', parsedUser);
           const currentUser = await authAPI.getCurrentUser();
           setUser(currentUser);
         } catch (error) {
@@ -64,7 +64,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('authToken', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
       
-      setUser(response.user);
+      const currentUser = await authAPI.getCurrentUser();
+      setUser(currentUser as User);
     } catch (error) {
       throw error;
     }

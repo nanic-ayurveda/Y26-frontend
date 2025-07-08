@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   Home, 
@@ -14,7 +13,8 @@ import {
   Building,
   User,
   Bell,
-  MapPin
+  MapPin,
+  Plus
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -31,7 +31,9 @@ const Sidebar = () => {
         ...baseItems,
         { icon: Users, label: 'Users', path: '/admin/users' },
         { icon: Calendar, label: 'Events', path: '/admin/events' },
+        { icon: Plus, label: 'Create Event', path: '/admin/events/create' },
         { icon: Calendar, label: 'Workshops', path: '/admin/workshops' },
+        { icon: Plus, label: 'Create Workshop', path: '/admin/workshops/create' },
         { icon: DollarSign, label: 'Budgets', path: '/admin/budgets' },
         { icon: Receipt, label: 'Expenses', path: '/admin/expenses' },
         { icon: Package, label: 'Product Catalog', path: '/admin/products' },
@@ -62,6 +64,7 @@ const Sidebar = () => {
       return [
         ...baseItems,
         { icon: Calendar, label: 'My Events', path: '/event-leads/events' },
+        { icon: Plus, label: 'Create Event', path: '/event-leads/events/create' },
         { icon: DollarSign, label: 'Budget Planning', path: '/event-leads/budgets' },
         { icon: Receipt, label: 'Expense Tracking', path: '/event-leads/expenses' },
         { icon: Bell, label: 'Notifications', path: '/notifications' },
@@ -73,6 +76,7 @@ const Sidebar = () => {
       return [
         ...baseItems,
         { icon: Calendar, label: 'My Workshops', path: '/workshop-leads/workshops' },
+        { icon: Plus, label: 'Create Workshop', path: '/workshop-leads/workshops/create' },
         { icon: DollarSign, label: 'Budget Planning', path: '/workshop-leads/budgets' },
         { icon: Receipt, label: 'Expense Tracking', path: '/workshop-leads/expenses' },
         { icon: Bell, label: 'Notifications', path: '/notifications' },

@@ -261,11 +261,14 @@ const Users = () => {
                     onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value as UserType['role'] }))}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   >
+                    <option value="ADMIN">Administrator</option>
                     <option value="EVENT_COORDINATOR">Event Coordinator</option>
                     <option value="EVENT_TEAM_LEAD">Event Team Lead</option>
+                    <option value="WORKSHOP_COORDINATOR">Workshop Coordinator</option>
+                    <option value="WORKSHOP_TEAM_LEAD">Workshop Team Lead</option>
                     <option value="FINANCE_TEAM">Finance Team</option>
                     <option value="FACILITIES_TEAM">Facilities Team</option>
-                    <option value="ADMIN">Administrator</option>
+                    
                   </select>
                 </div>
                 

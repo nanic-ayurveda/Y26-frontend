@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Plus, Calendar, Users, MapPin, Clock, Eye, Download } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Calendar, Eye, Download } from 'lucide-react';
 import { eventsAPI, Event } from '@/api';
 import { useApi } from '@/hooks/useApi';
 

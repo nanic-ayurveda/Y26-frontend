@@ -5,7 +5,7 @@ import { eventsAPI, usersAPI, categoriesAPI, budgetsAPI, CreateEventRequest, Use
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';
 
-const CreateEvent = () => {
+const AdminCreateEvent = () => {
   const navigate = useNavigate();
   const { showSuccess } = useToast();
   
@@ -159,7 +159,7 @@ const CreateEvent = () => {
     <div className="space-y-6">
       <div className="flex items-center space-x-4">
         <Link
-          to="/event-leads/events"
+          to="/admin/events"
           className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
@@ -420,4 +420,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default AdminCreateEvent;

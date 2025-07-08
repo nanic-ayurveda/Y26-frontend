@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Calendar, Users, MapPin, Clock, Eye } from 'lucide-react';
 import { eventsAPI, Event } from '@/api';

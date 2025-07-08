@@ -22,6 +22,8 @@ const AdminExpenses = React.lazy(() => import('@/pages/admin/Expenses'));
 const AdminCategories = React.lazy(() => import('@/pages/admin/Categories'));
 const AdminProducts = React.lazy(() => import('@/pages/admin/Products'));
 const AdminReports = React.lazy(() => import('@/pages/admin/Reports'));
+const AdminCreateEvent = React.lazy(() => import('@/pages/admin/CreateEvent'));
+const AdminCreateWorkshop = React.lazy(() => import('@/pages/admin/CreateWorkshop'));
 
 // Finance Pages
 const FinanceEvents = React.lazy(() => import('@/pages/finance/Events'));
@@ -107,6 +109,17 @@ const AppContent = () => {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="admin/events/create"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN']}>
+                <React.Suspense fallback={<div className="flex justify-center p-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+                  <AdminCreateEvent />
+                </React.Suspense>
+              </ProtectedRoute>
+            }
+          />
           
           <Route
             path="admin/workshops"
@@ -114,6 +127,17 @@ const AppContent = () => {
               <ProtectedRoute allowedRoles={['ADMIN']}>
                 <React.Suspense fallback={<div className="flex justify-center p-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
                   <AdminWorkshops />
+                </React.Suspense>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="admin/workshops/create"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN']}>
+                <React.Suspense fallback={<div className="flex justify-center p-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+                  <AdminCreateWorkshop />
                 </React.Suspense>
               </ProtectedRoute>
             }
