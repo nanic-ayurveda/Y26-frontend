@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Calendar, Users, MapPin, Clock, Eye } from 'lucide-react';
 import { workshopsAPI, Workshop } from '@/api';
 import { useAuth } from '@/context/AuthContext';
 import { useApi } from '@/hooks/useApi';
 
-const WorkshopLeadWorkshops = () => {
+const Workshops = () => {
   const { user } = useAuth();
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   
@@ -19,16 +19,12 @@ const WorkshopLeadWorkshops = () => {
     const loadWorkshops = async () => {
       const data = await fetchWorkshops();
       if (data) {
-        // Filter workshops created by current user
-        const userWorkshops = data.filter(workshop => 
-          workshop.creator.id === user?.id
-        );
-        setWorkshops(userWorkshops);
+        setWorkshops(data);
       }
     };
 
     loadWorkshops();
-  }, [user]);
+  }, []);
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
@@ -58,19 +54,21 @@ const WorkshopLeadWorkshops = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Workshops</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Workshops</h1>
           <p className="mt-1 text-sm text-gray-600">
-            Manage your workshops and their financial planning
+            Manage workshops and their financial planning
           </p>
         </div>
         
-        <Link
-          to="/workshop-leads/workshops/create"
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Create Workshop
-        </Link>
+        {(user?.role === 'WORKSHOP_TEAM_LEAD' || user?.role === 'ADMIN') && (
+          <Link
+            to="/workshops/create"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Create Workshop
+          </Link>
+        )}
       </div>
 
       <div className="bg-white shadow overflow-hidden sm:rounded-md">
@@ -82,13 +80,6 @@ const WorkshopLeadWorkshops = () => {
               <p className="mt-1 text-sm text-gray-500">
                 Get started by creating a new workshop.
               </p>
-              <Link
-                to="/workshop-leads/workshops/create"
-                className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Create Workshop
-              </Link>
             </div>
           ) : (
             workshops.map((workshop) => (
@@ -101,9 +92,17 @@ const WorkshopLeadWorkshops = () => {
                           {workshop.title}
                         </h3>
                         {getStatusBadge(workshop.status)}
+                        <span className="text-sm font-medium text-purple-600">
+                          WORKSHOP
+                        </span>
                       </div>
                       
                       <div className="mt-2 flex items-center text-sm text-gray-500 space-x-4">
+                        <div className="flex items-center">
+                          <Users className="h-4 w-4 mr-1" />
+                          <span>Created by {workshop.creator.name}</span>
+                        </div>
+                        
                         {workshop.coordinator && (
                           <div className="flex items-center">
                             <Users className="h-4 w-4 mr-1" />
@@ -136,7 +135,7 @@ const WorkshopLeadWorkshops = () => {
                     <div className="flex items-center space-x-2">
                       <Link
                         to={`/workshops/${workshop.id}`}
-                        className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                        className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         View
@@ -153,4 +152,4 @@ const WorkshopLeadWorkshops = () => {
   );
 };
 
-export default WorkshopLeadWorkshops;
+export default Workshops;

@@ -101,7 +101,7 @@ const Events = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-3">
                         <h3 className="text-lg font-medium text-gray-900 truncate">
-                          {event.name}
+                          {event.title}
                         </h3>
                         {getStatusBadge(event.status)}
                         <span className={`text-sm font-medium ${getTypeColor(event.type)}`}>

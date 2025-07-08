@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Plus, Calendar, Clock, CheckCircle, DollarSign, AlertCircle } from 'lucide-react';
-import { eventsAPI, Event } from '@/api';
+import { workshopsAPI, Workshop } from '@/api';
 import { useAuth } from '@/context/AuthContext';
 
 const WorkshopLeadDashboard = () => {
   const { user } = useAuth();
-  const [workshops, setWorkshops] = useState<Event[]>([]);
+  const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWorkshops = async () => {
       try {
-        const data = await eventsAPI.getAll();
+        const data = await workshopsAPI.getAll();
         // Filter workshops created by current user
-        const userWorkshops = data.filter(event => 
-          event.creatorId === user?.id && event.type === 'WORKSHOP'
+        const userWorkshops = data.filter(workshop => 
+          workshop.creatorId === user?.id
         );
         setWorkshops(userWorkshops);
       } catch (error) {
@@ -225,7 +225,7 @@ const WorkshopLeadDashboard = () => {
                     {workshop.status}
                   </span>
                   <a
-                    href={`/events/${workshop.id}`}
+                    href={`/workshops/${workshop.id}`}
                     className="text-purple-600 hover:text-purple-800 text-sm font-medium"
                   >
                     View →

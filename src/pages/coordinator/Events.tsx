@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Calendar, Eye, Filter } from 'lucide-react';
-import { eventsAPI, Event } from '@/api';
+import { eventsAPI, workshopsAPI, Event, Workshop } from '@/api';
 import { useAuth } from '@/context/AuthContext';
 import { useApi } from '@/hooks/useApi';
 
 const CoordinatorEvents = () => {
   const { user } = useAuth();
   const [events, setEvents] = useState<Event[]>([]);
+  const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [filteredWorkshops, setFilteredWorkshops] = useState<Workshop[]>([]);
   const [filters, setFilters] = useState({
     status: '',
     type: '',
@@ -21,6 +23,11 @@ const CoordinatorEvents = () => {
     errorMessage: 'Failed to fetch events'
   });
 
+  const { execute: fetchWorkshops } = useApi(workshopsAPI.getAll, {
+    showSuccessToast: false,
+    showErrorToast: true,
+    errorMessage: 'Failed to fetch workshops'
+  });
   useEffect(() => {
     loadEvents();
   }, []);
@@ -30,30 +37,51 @@ const CoordinatorEvents = () => {
   }, [events, filters]);
 
   const loadEvents = async () => {
-    const data = await fetchEvents();
-    if (data) {
+    const [eventsData, workshopsData] = await Promise.all([
+      fetchEvents(),
+      fetchWorkshops()
+    ]);
+    
+    if (eventsData) {
       // Filter events where user is coordinator
-      const coordinatorEvents = data.filter(event => 
+      const coordinatorEvents = eventsData.filter(event => 
         event.coordinator?.id === user?.id
       );
       setEvents(coordinatorEvents);
+    }
+    
+    if (workshopsData) {
+      // Filter workshops where user is coordinator
+      const coordinatorWorkshops = workshopsData.filter(workshop => 
+        workshop.coordinator?.id === user?.id
+      );
+      setWorkshops(coordinatorWorkshops);
     }
   };
 
   const applyFilters = () => {
     let filtered = [...events];
+    let filteredWorkshopsData = [...workshops];
 
     if (filters.status) {
       filtered = filtered.filter(event => event.status === filters.status);
+      filteredWorkshopsData = filteredWorkshopsData.filter(workshop => workshop.status === filters.status);
     }
 
     if (filters.type) {
-      filtered = filtered.filter(event => event.type === filters.type);
+      if (filters.type === 'EVENT') {
+        filteredWorkshopsData = [];
+      } else if (filters.type === 'WORKSHOP') {
+        filteredEventsData = [];
+      }
     }
 
     if (filters.dateFrom) {
       filtered = filtered.filter(event => 
         event.dateTime && new Date(event.dateTime) >= new Date(filters.dateFrom)
+      );
+      filteredWorkshopsData = filteredWorkshopsData.filter(workshop => 
+        workshop.dateTime && new Date(workshop.dateTime) >= new Date(filters.dateFrom)
       );
     }
 
@@ -61,9 +89,13 @@ const CoordinatorEvents = () => {
       filtered = filtered.filter(event => 
         event.dateTime && new Date(event.dateTime) <= new Date(filters.dateTo)
       );
+      filteredWorkshopsData = filteredWorkshopsData.filter(workshop => 
+        workshop.dateTime && new Date(workshop.dateTime) <= new Date(filters.dateTo)
+      );
     }
 
     setFilteredEvents(filtered);
+    setFilteredWorkshops(filteredWorkshopsData);
   };
 
   const getStatusBadge = (status: string) => {
@@ -193,7 +225,7 @@ const CoordinatorEvents = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredEvents.length === 0 ? (
+              {filteredEvents.length === 0 && filteredWorkshops.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center">
                     <Calendar className="mx-auto h-12 w-12 text-gray-400" />
@@ -204,34 +236,34 @@ const CoordinatorEvents = () => {
                   </td>
                 </tr>
               ) : (
-                filteredEvents.map((event) => (
-                  <tr key={event.id} className="hover:bg-gray-50">
+                [...filteredEvents, ...filteredWorkshops].map((item) => (
+                  <tr key={item.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className="text-sm font-medium text-gray-900">{event.title}</div>
-                        <div className="text-sm text-gray-500">{event.description}</div>
+                        <div className="text-sm font-medium text-gray-900">{item.title}</div>
+                        <div className="text-sm text-gray-500">{item.description}</div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        event.type === 'EVENT' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
+                        'type' in item && item.type === 'EVENT' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
                       }`}>
-                        {event.type}
+                        {'type' in item ? item.type : 'WORKSHOP'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{event.creator.name}</div>
-                      <div className="text-sm text-gray-500">{event.creator.email}</div>
+                      <div className="text-sm text-gray-900">{item.creator?.name}</div>
+                      <div className="text-sm text-gray-500">{item.creator?.email}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {getStatusBadge(event.status)}
+                      {getStatusBadge(item.status)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {event.dateTime ? new Date(event.dateTime).toLocaleDateString() : 'TBD'}
+                      {item.dateTime ? new Date(item.dateTime).toLocaleDateString() : 'TBD'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <a
-                        href={`/events/${event.id}`}
+                        href={`/${'type' in item && item.type === 'EVENT' ? 'events' : 'workshops'}/${item.id}`}
                         className="text-blue-600 hover:text-blue-900"
                       >
                         <Eye className="h-4 w-4" />

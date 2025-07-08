@@ -5,7 +5,7 @@ import { workshopsAPI, usersAPI, categoriesAPI, budgetsAPI, CreateWorkshopReques
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';
 
-const AdminCreateWorkshop = () => {
+const CreateWorkshop = () => {
   const navigate = useNavigate();
   const { showSuccess } = useToast();
   
@@ -104,7 +104,7 @@ const AdminCreateWorkshop = () => {
       }
       
       showSuccess('Workshop created successfully', 'Your workshop has been created and is pending approval.');
-      navigate('/workshop-leads/workshops');
+      navigate('/workshops');
     }
   };
 
@@ -159,7 +159,7 @@ const AdminCreateWorkshop = () => {
     <div className="space-y-6">
       <div className="flex items-center space-x-4">
         <Link
-          to="/admin/workshops"
+          to="/workshops"
           className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
@@ -331,7 +331,7 @@ const AdminCreateWorkshop = () => {
 
           <div className="flex justify-end space-x-3">
             <Link
-              to="/workshop-leads/workshops"
+              to="/workshops"
               className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
               Cancel
@@ -420,4 +420,4 @@ const AdminCreateWorkshop = () => {
   );
 };
 
-export default AdminCreateWorkshop;
+export default CreateWorkshop;
