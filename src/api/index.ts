@@ -37,6 +37,7 @@ api.interceptors.response.use(
 export * from './auth';
 export * from './users';
 export * from './events';
+export * from './workshops';
 export * from './budgets';
 export * from './expenses';
 export * from './categories';

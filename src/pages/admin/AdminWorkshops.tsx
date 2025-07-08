@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Calendar, Eye, Download } from 'lucide-react';
-import { eventsAPI, Event } from '@/api';
+import { workshopsAPI, Workshop } from '@/api';
 import { useApi } from '@/hooks/useApi';
 
 const AdminWorkshops = () => {
-  const [workshops, setWorkshops] = useState<Event[]>([]);
+  const [workshops, setWorkshops] = useState<Workshop[]>([]);
   
-  const { execute: fetchEvents, loading } = useApi(eventsAPI.getAll, {
+  const { execute: fetchWorkshops, loading } = useApi(workshopsAPI.getAll, {
     showSuccessToast: false,
     showErrorToast: true,
     errorMessage: 'Failed to fetch workshops'
@@ -14,10 +14,9 @@ const AdminWorkshops = () => {
 
   useEffect(() => {
     const loadWorkshops = async () => {
-      const data = await fetchEvents();
+      const data = await fetchWorkshops();
       if (data) {
-        const workshopData = data.filter(item => item.type === 'WORKSHOP');
-        setWorkshops(workshopData);
+        setWorkshops(data);
       }
     };
 

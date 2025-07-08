@@ -45,6 +45,9 @@ const WorkshopLeadBudgets = React.lazy(() => import('@/pages/workshop-leads/Budg
 const WorkshopLeadExpenses = React.lazy(() => import('@/pages/workshop-leads/Expenses'));
 const CreateWorkshop = React.lazy(() => import('@/pages/workshop-leads/CreateWorkshop'));
 
+// Workshop Detail Page
+const WorkshopDetail = React.lazy(() => import('@/pages/workshops/WorkshopDetail'));
+
 // Facilities Pages
 const FacilitiesEvents = React.lazy(() => import('@/pages/facilities/Events'));
 const FacilitiesExpenses = React.lazy(() => import('@/pages/facilities/Expenses'));
@@ -453,6 +456,16 @@ const AppContent = () => {
                   <CoordinatorReports />
                 </React.Suspense>
               </ProtectedRoute>
+            }
+          />
+          
+          {/* Workshop Detail Route */}
+          <Route
+            path="workshops/:id"
+            element={
+              <React.Suspense fallback={<div className="flex justify-center p-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+                <WorkshopDetail />
+              </React.Suspense>
             }
           />
         </Route>

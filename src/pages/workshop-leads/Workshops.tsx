@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Calendar, Users, MapPin, Clock, Eye } from 'lucide-react';
-import { eventsAPI, Event } from '@/api';
+import { workshopsAPI, Workshop } from '@/api';
 import { useAuth } from '@/context/AuthContext';
 import { useApi } from '@/hooks/useApi';
 
 const WorkshopLeadWorkshops = () => {
   const { user } = useAuth();
-  const [workshops, setWorkshops] = useState<Event[]>([]);
+  const [workshops, setWorkshops] = useState<Workshop[]>([]);
   
-  const { execute: fetchEvents, loading } = useApi(eventsAPI.getAll, {
+  const { execute: fetchWorkshops, loading } = useApi(workshopsAPI.getAll, {
     showSuccessToast: false,
     showErrorToast: true,
     errorMessage: 'Failed to fetch workshops'
@@ -17,11 +17,11 @@ const WorkshopLeadWorkshops = () => {
 
   useEffect(() => {
     const loadWorkshops = async () => {
-      const data = await fetchEvents();
+      const data = await fetchWorkshops();
       if (data) {
-        // Filter workshops created by current user and type WORKSHOP
-        const userWorkshops = data.filter(event => 
-          event.creator.id === user?.id && event.type === 'WORKSHOP'
+        // Filter workshops created by current user
+        const userWorkshops = data.filter(workshop => 
+          workshop.creator.id === user?.id
         );
         setWorkshops(userWorkshops);
       }
@@ -135,7 +135,7 @@ const WorkshopLeadWorkshops = () => {
                     
                     <div className="flex items-center space-x-2">
                       <Link
-                        to={`/events/${workshop.id}`}
+                        to={`/workshops/${workshop.id}`}
                         className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                       >
                         <Eye className="h-4 w-4 mr-1" />
