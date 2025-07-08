@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Calendar, Users, MapPin, Clock, Eye } from 'lucide-react';
 import { eventsAPI, Event } from '@/api';
@@ -98,7 +98,7 @@ const WorkshopLeadWorkshops = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-3">
                         <h3 className="text-lg font-medium text-gray-900 truncate">
-                          {workshop.name}
+                          {workshop.title}
                         </h3>
                         {getStatusBadge(workshop.status)}
                       </div>

@@ -60,13 +60,13 @@ const AdminReports = () => {
       const csvContent = "data:text/csv;charset=utf-8," + 
         "Event,Category,Item,Quantity,UnitPrice,Amount,AddedBy,Date\n" +
         (financialReport?.expenses.map(expense => 
-          `"${event.name}","${expense.category}","${expense.itemName}",${expense.quantity},${expense.unitPrice},${expense.amount},"${expense.addedBy}","${expense.createdAt}"`
+          `"${event.title}","${expense.category}","${expense.itemName}",${expense.quantity},${expense.unitPrice},${expense.amount},"${expense.addedBy}","${expense.createdAt}"`
         ).join('\n') || '');
       
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `${event.name}_financial_report.csv`);
+      link.setAttribute("download", `${event.title}_financial_report.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -254,7 +254,7 @@ const AdminReports = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-medium text-gray-900 truncate">
-                            {event.name}
+                            {event.title}
                           </h4>
                           <p className="text-xs text-gray-500">{event.type}</p>
                           <p className="text-xs text-gray-500">
@@ -280,7 +280,7 @@ const AdminReports = () => {
               {/* Event Info */}
               <div className="bg-white shadow rounded-lg p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">{selectedEvent.name}</h3>
+                  <h3 className="text-lg font-medium text-gray-900">{selectedEvent.title}</h3>
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => downloadEventReport(selectedEvent, 'csv')}

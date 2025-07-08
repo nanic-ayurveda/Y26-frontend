@@ -4,7 +4,7 @@ import { usersAPI, User as UserType } from '@/api';
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';
 
-const Users = () => {
+const AdminUsers = () => {
   const [users, setUsers] = useState<UserType[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState<UserType | null>(null);
@@ -297,4 +297,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AdminUsers;

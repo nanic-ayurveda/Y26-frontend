@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Calendar, FileText, TrendingUp, DollarSign, Receipt, Download, Eye } from 'lucide-react';
-import { eventsAPI, reportsAPI, Event, FinancialReport } from '../../api';
+import { eventsAPI, Event } from '@/api';
 
 const CoordinatorDashboard = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -198,7 +198,7 @@ const CoordinatorDashboard = () => {
                 <div key={event.id} className="border border-gray-200 rounded-lg p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{event.name}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900">{event.title}</h3>
                       <p className="text-sm text-gray-600">{event.type} • Created by {event.creator.name}</p>
                       <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full mt-2 ${
                         event.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :

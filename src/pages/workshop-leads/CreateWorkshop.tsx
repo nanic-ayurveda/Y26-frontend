@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Save, Plus } from 'lucide-react';
+import { ArrowLeft, Save, Plus } from 'lucide-react';
 import { eventsAPI, usersAPI, categoriesAPI, budgetsAPI, CreateEventRequest, User, BudgetCategory } from '@/api';
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';

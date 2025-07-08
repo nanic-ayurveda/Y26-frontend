@@ -1,6 +1,7 @@
 import { api } from './index';
 
 export interface Budget {
+  sponsorAmount: number;
   id: string;
   amount: number;
   sponsorContribution: number;

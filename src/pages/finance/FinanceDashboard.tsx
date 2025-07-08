@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Clock, CheckCircle, XCircle, DollarSign, Calendar, TrendingUp, AlertTriangle, FileText } from 'lucide-react';
-import { eventsAPI, Event } from '../../api';
+import { useEffect, useState } from 'react';
+import { Clock, CheckCircle, XCircle, DollarSign, TrendingUp, AlertTriangle, FileText } from 'lucide-react';
+import { eventsAPI, Event } from '@/api';
 
 const FinanceDashboard = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -198,7 +198,7 @@ const FinanceDashboard = () => {
                 <div className="flex items-center space-x-4">
                   <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                   <div>
-                    <h3 className="font-medium text-gray-900">{event.name}</h3>
+                    <h3 className="font-medium text-gray-900">{event.title}</h3>
                     <p className="text-sm text-gray-600">Created by {event.creator.name}</p>
                     <p className="text-xs text-gray-500">{event.type} • {new Date(event.createdAt).toLocaleDateString()}</p>
                   </div>
@@ -256,7 +256,7 @@ const FinanceDashboard = () => {
                   'bg-red-400'
                 }`}></div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{event.name}</p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{event.title}</p>
                   <p className="text-xs text-gray-500">{new Date(event.updatedAt).toLocaleDateString()}</p>
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${

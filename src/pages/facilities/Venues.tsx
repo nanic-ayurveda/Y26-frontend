@@ -1,5 +1,4 @@
-import React from 'react';
-import VenueManagement from './VenueManagement';
+import VenueManagement from '@/pages/facilities/VenueManagement';
 
 const FacilitiesVenues = () => {
   return <VenueManagement />;

@@ -1,5 +1,4 @@
-import React from 'react';
-import Expenses from '../expenses/Expenses';
+import Expenses from '@/pages/expenses/Expenses';
 
 const WorkshopLeadExpenses = () => {
   return <Expenses />;

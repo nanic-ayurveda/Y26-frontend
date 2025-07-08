@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Package, Receipt, Calendar, TrendingUp, Plus, DollarSign, CheckCircle, Clock } from 'lucide-react';
-import { eventsAPI, expensesAPI, Event, Expense } from '../../api';
+import { useEffect, useState } from 'react';
+import { Package, Receipt, Calendar, TrendingUp, Plus, DollarSign, CheckCircle } from 'lucide-react';
+import { eventsAPI, expensesAPI, Event, Expense } from '@/api';
 
 const FacilitiesDashboard = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -208,7 +208,7 @@ const FacilitiesDashboard = () => {
                   <div className="flex items-center space-x-4">
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                     <div>
-                      <h3 className="font-medium text-gray-900">{event.name}</h3>
+                      <h3 className="font-medium text-gray-900">{event.title}</h3>
                       <p className="text-sm text-gray-600">{event.type} • Created by {event.creator.name}</p>
                       {event.coordinator && (
                         <p className="text-xs text-gray-500">Coordinator: {event.coordinator.name}</p>

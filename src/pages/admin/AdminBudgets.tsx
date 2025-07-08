@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { DollarSign, Calendar, CheckCircle, Clock, XCircle, Eye, Filter } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { DollarSign, Calendar, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { eventsAPI, budgetsAPI, Event, Budget } from '@/api';
-import { useAuth } from '@/context/AuthContext';
+// import { useAuth } from '@/context/AuthContext';
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';
 
 const AdminBudgets = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const { showSuccess } = useToast();
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);

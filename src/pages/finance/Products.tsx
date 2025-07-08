@@ -1,5 +1,4 @@
-import React from 'react';
-import Products from '../products/Products';
+import Products from '@/pages/products/Products';
 
 const FinanceProducts = () => {
   return <Products />;

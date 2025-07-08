@@ -58,7 +58,13 @@ const AdminVenues = () => {
   const loadVenues = async () => {
     const data = await fetchVenues();
     if (data) {
-      setVenues(data);
+      // Ensure every venue has an events array (never undefined)
+      setVenues(
+        data.map((venue: Venue) => ({
+          ...venue,
+          events: venue.events ?? []
+        }))
+      );
     }
   };
 

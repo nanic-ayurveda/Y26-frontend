@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Plus, Calendar, Clock, CheckCircle, XCircle, DollarSign, TrendingUp, AlertCircle } from 'lucide-react';
-import { eventsAPI, Event } from '../../api';
-import { useAuth } from '../../context/AuthContext';
+import { useEffect, useState } from 'react';
+import { Plus, Calendar, Clock, CheckCircle, DollarSign, AlertCircle } from 'lucide-react';
+import { eventsAPI, Event } from '@/api';
+import { useAuth } from '@/context/AuthContext';
 
 const WorkshopLeadDashboard = () => {
   const { user } = useAuth();

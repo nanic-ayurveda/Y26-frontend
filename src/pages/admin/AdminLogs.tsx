@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Activity, User, Calendar, Filter } from 'lucide-react';
 import { adminAPI, ActivityLog } from '@/api';
 

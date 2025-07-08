@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { DollarSign, Calendar, CheckCircle, Clock, XCircle, Eye, Filter } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { DollarSign, Calendar, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { eventsAPI, budgetsAPI, Event, Budget } from '@/api';
 import { useAuth } from '@/context/AuthContext';
 import { useApi } from '@/hooks/useApi';

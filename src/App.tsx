@@ -11,19 +11,19 @@ import Profile from '@/pages/Profile';
 import Notifications from '@/pages/Notifications';
 
 // Admin Pages
-const AdminUsers = React.lazy(() => import('@/pages/admin/Users'));
+const AdminUsers = React.lazy(() => import('@/pages/admin/AdminUsers'));
 const AdminLogs = React.lazy(() => import('@/pages/admin/AdminLogs'));
-const AdminEvents = React.lazy(() => import('@/pages/admin/Events'));
-const AdminWorkshops = React.lazy(() => import('@/pages/admin/Workshops'));
-const AdminNotifications = React.lazy(() => import('@/pages/admin/Notifications'));
-const AdminVenues = React.lazy(() => import('@/pages/admin/Venues'));
-const AdminBudgets = React.lazy(() => import('@/pages/admin/Budgets'));
-const AdminExpenses = React.lazy(() => import('@/pages/admin/Expenses'));
-const AdminCategories = React.lazy(() => import('@/pages/admin/Categories'));
-const AdminProducts = React.lazy(() => import('@/pages/admin/Products'));
-const AdminReports = React.lazy(() => import('@/pages/admin/Reports'));
-const AdminCreateEvent = React.lazy(() => import('@/pages/admin/CreateEvent'));
-const AdminCreateWorkshop = React.lazy(() => import('@/pages/admin/CreateWorkshop'));
+const AdminEvents = React.lazy(() => import('@/pages/admin/AdminEvents'));
+const AdminWorkshops = React.lazy(() => import('@/pages/admin/AdminWorkshops'));
+const AdminNotifications = React.lazy(() => import('@/pages/admin/AdminNotifications'));
+const AdminVenues = React.lazy(() => import('@/pages/admin/AdminVenues'));
+const AdminBudgets = React.lazy(() => import('@/pages/admin/AdminBudgets'));
+const AdminExpenses = React.lazy(() => import('@/pages/admin/AdminExpenses'));
+const AdminCategories = React.lazy(() => import('@/pages/admin/AdminCategories'));
+const AdminProducts = React.lazy(() => import('@/pages/admin/AdminProducts'));
+const AdminReports = React.lazy(() => import('@/pages/admin/AdminReports'));
+const AdminCreateEvent = React.lazy(() => import('@/pages/admin/AdminCreateEvent'));
+const AdminCreateWorkshop = React.lazy(() => import('@/pages/admin/AdminCreateWorkshop'));
 
 // Finance Pages
 const FinanceEvents = React.lazy(() => import('@/pages/finance/Events'));

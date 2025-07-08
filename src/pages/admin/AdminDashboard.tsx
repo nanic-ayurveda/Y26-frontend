@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Users, Calendar, CheckCircle, Clock, DollarSign, Receipt, Activity, Settings, TrendingUp, AlertTriangle } from 'lucide-react';
-import { adminAPI } from '../../api';
+import { adminAPI } from '@/api';
 
 interface AdminStats {
   totalUsers: number;

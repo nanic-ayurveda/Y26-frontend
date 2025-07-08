@@ -1,5 +1,4 @@
-import React from 'react';
-import Reports from '../reports/Reports';
+import Reports from '@/pages/reports/Reports';
 
 const FinanceReports = () => {
   return <Reports />;

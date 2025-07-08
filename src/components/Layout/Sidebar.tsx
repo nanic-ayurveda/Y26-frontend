@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { 
   Home, 
   Calendar, 
@@ -20,6 +20,7 @@ import { useAuth } from '@/context/AuthContext';
 
 const Sidebar = () => {
   const { user } = useAuth();
+  const location = useLocation();
 
   const getMenuItems = () => {
     const baseItems = [
@@ -131,13 +132,14 @@ const Sidebar = () => {
             <NavLink
               key={item.path}
               to={item.path}
-              className={({ isActive }) =>
-                `flex items-center px-4 py-3 mb-1 text-sm font-medium rounded-lg transition-all duration-200 ${
+              className={() => {
+                const isActive = location.pathname === item.path;
+                return `flex items-center px-4 py-3 mb-1 text-sm font-medium rounded-lg transition-all duration-200 ${
                   isActive
                     ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-500'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                }`
-              }
+                }`;
+              }}
             >
               <item.icon className="w-5 h-5 mr-3" />
               {item.label}

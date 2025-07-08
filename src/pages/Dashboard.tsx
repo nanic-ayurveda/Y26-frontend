@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
-import AdminDashboard from './admin/Dashboard';
-import EventLeadDashboard from './eventlead/EventLeadDashboard';
-import WorkshopLeadDashboard from './workshoplead/WorkshopLeadDashboard';
-import FinanceDashboard from './finance/FinanceDashboard';
-import FacilitiesDashboard from './facilities/FacilitiesDashboard';
-import CoordinatorDashboard from './coordinator/CoordinatorDashboard';
+import { useAuth } from '@/context/AuthContext';
+import AdminDashboard from '@/pages/admin/AdminDashboard';
+import EventLeadDashboard from '@/pages/eventlead/EventLeadDashboard';
+import WorkshopLeadDashboard from '@/pages/workshoplead/WorkshopLeadDashboard';
+import FinanceDashboard from '@/pages/finance/FinanceDashboard';
+import FacilitiesDashboard from '@/pages/facilities/FacilitiesDashboard';
+import CoordinatorDashboard from '@/pages/coordinator/CoordinatorDashboard';
 
 const Dashboard = () => {
   const { user } = useAuth();

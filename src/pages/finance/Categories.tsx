@@ -1,5 +1,4 @@
-import React from 'react';
-import Categories from '../categories/Categories';
+import Categories from '@/pages/categories/Categories';
 
 const FinanceCategories = () => {
   return <Categories />;

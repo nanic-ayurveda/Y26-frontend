@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Calendar, Clock, CheckCircle, DollarSign, AlertTriangle } from 'lucide-react';
-import { eventsAPI, Event } from '../../api';
-import { useAuth } from '../../context/AuthContext';
+import { eventsAPI, Event } from '@/api';
+import { useAuth } from '@/context/AuthContext';
 
 const EventLeadDashboard = () => {
   const { user } = useAuth();

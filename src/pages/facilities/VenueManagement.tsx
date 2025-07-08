@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { MapPin, Calendar, Users, Filter, CheckCircle, Plus, Download, Edit2, Trash2 } from 'lucide-react';
+import { Calendar, Users, Filter, CheckCircle, Plus, Download, Edit2, Trash2 } from 'lucide-react';
 import { venuesAPI, eventsAPI, Event, Venue } from '@/api';
 import { useApi } from '@/hooks/useApi';
 import { useToast } from '@/components/ui/Toast';
 
-interface EventForAssignment extends Event {
+// Fix: Use Omit to remove the venue property from Event and add our own
+interface EventForAssignment extends Omit<Event, 'venue'> {
   venue?: Venue;
 }
 
@@ -81,8 +82,25 @@ const VenueManagement = () => {
       fetchVenues()
     ]);
 
-    if (eventsData) setEvents(eventsData);
-    if (venuesData) setVenues(venuesData);
+    // Fix: Transform Event[] to EventForAssignment[] by enriching with venue data
+    if (eventsData && venuesData) {
+      const enrichedEvents: EventForAssignment[] = eventsData.map(event => ({
+        ...event,
+        venue: event.venueId ? venuesData.find(v => v.id === event.venueId) : undefined
+      }));
+      setEvents(enrichedEvents);
+      setVenues(venuesData);
+    } else {
+      if (eventsData) {
+        // If we don't have venues data, just convert events without venue enrichment
+        const enrichedEvents: EventForAssignment[] = eventsData.map(event => ({
+          ...event,
+          venue: undefined
+        }));
+        setEvents(enrichedEvents);
+      }
+      if (venuesData) setVenues(venuesData);
+    }
   };
 
   const applyFilters = () => {
@@ -121,7 +139,7 @@ const VenueManagement = () => {
     const result = await assignVenue(venueId, eventId);
     if (result) {
       showSuccess('Venue assigned successfully');
-      loadData();
+      loadData(); // Reload data to get updated venue assignments
     }
   };
 
